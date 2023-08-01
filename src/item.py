@@ -68,4 +68,3 @@ class Item:
             number = int(math.floor(float(num.strip())))
             return number
         return num
-
