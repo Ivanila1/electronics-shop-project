@@ -1,4 +1,8 @@
+import pytest
+
 from src.item import Item
+from src.phone import Phone
+
 
 def test_Item():
     item1 = Item("Смартфон", 10000, 20)
@@ -24,7 +28,6 @@ def test_Item2():
 
     # длина наименования товара больше 10 символов
     item.name = 'СуперСмартфон'
-    # Exception: Длина наименования товара превышает 10 символов.
 
     Item.instantiate_from_csv()  # создание объектов из данных файла
     assert len(Item.all) == 5  # в файле 5 записей с данными по товарам
@@ -40,3 +43,11 @@ def test_Item3():
     item1 = Item("Смартфон", 10000, 20)
     assert repr(item1) == "Item('Смартфон', 10000, 20)"
     assert str(item1) == 'Смартфон'
+
+def test_Item4():
+    phone1 = Phone("iPhone 14", 120000, 5, 2)
+    item1 = Item("Смартфон", 10000, 20)
+    assert item1 + phone1 == 25
+
+    with pytest.raises(Exception):
+        item1 + 10000
