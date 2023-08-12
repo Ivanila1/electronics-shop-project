@@ -51,3 +51,8 @@ def test_Item4():
 
     with pytest.raises(Exception):
         item1 + 10000
+
+def test_Item4():
+    Item.instantiate_from_csv()
+
+

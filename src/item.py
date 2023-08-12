@@ -1,6 +1,7 @@
 import csv
 import os
 import math
+from src.errors import InstantiateCSVError
 
 class Item:
     """
@@ -57,10 +58,20 @@ class Item:
         Item.all = []
         current_dir = os.path.dirname(os.path.abspath(__file__))
         data = os.path.join(current_dir, 'items.csv')
-        with open(data, encoding="cp1251") as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                cls(row["name"], row["price"], row["quantity"])
+        try:
+            with open(data, encoding="cp1251") as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if row["name"] and row["price"] and row["quantity"]:
+                        print(row)
+                        cls(row["name"], row["price"], row["quantity"])
+                    else:
+                        raise InstantiateCSVError
+        except FileNotFoundError:
+            print("Отсутствует файл item.csv")
+        except InstantiateCSVError as ex:
+            print(ex.message)
+
 
     @staticmethod
     def string_to_number(num):
