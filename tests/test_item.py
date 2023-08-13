@@ -48,11 +48,5 @@ def test_Item4():
     phone1 = Phone("iPhone 14", 120000, 5, 2)
     item1 = Item("Смартфон", 10000, 20)
     assert item1 + phone1 == 25
-
     with pytest.raises(Exception):
         item1 + 10000
-
-def test_Item4():
-    Item.instantiate_from_csv()
-
-

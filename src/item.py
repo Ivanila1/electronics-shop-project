@@ -59,18 +59,17 @@ class Item:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         data = os.path.join(current_dir, 'items.csv')
         try:
-            with open(data, encoding="cp1251") as csvfile:
+            with open(data, encoding="utf-8") as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     if row["name"] and row["price"] and row["quantity"]:
-                        print(row)
                         cls(row["name"], row["price"], row["quantity"])
                     else:
                         raise InstantiateCSVError
         except FileNotFoundError:
-            print("Отсутствует файл item.csv")
+            print(f"Отсутствует файл {data}")
         except InstantiateCSVError as ex:
-            print(ex.message)
+            print(f'{data} {ex.message}')
 
 
     @staticmethod
